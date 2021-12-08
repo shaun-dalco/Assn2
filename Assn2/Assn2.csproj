@@ -100,6 +100,11 @@
     </ApplicationDefinition>
     <Compile Include="Control\ResearchController.cs" />
     <Compile Include="Database\ERDAdapter.cs" />
+    <Compile Include="Model\Publication.cs" />
+    <Compile Include="Model\Student.cs" />
+    <Compile Include="Model\Position.cs" />
+    <Compile Include="Model\Researcher.cs" />
+    <Compile Include="Model\Staff.cs" />
     <Compile Include="Research\EmploymentLevel.cs" />
     <Compile Include="Research\OutputType.cs" />
     <Compile Include="Research\Position.cs" />

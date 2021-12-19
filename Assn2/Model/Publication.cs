@@ -18,14 +18,14 @@ namespace Assn2.Model
 
     class Publication
     {
-        public string doi;
-        public string title;
-        public string authors;
-        public int publicationYear; 
-        public PublicationType type;
-        public string cite_as;
-        public DateTime avaliable;
-        public int age; 
+        public string Doi;
+        public string Title;
+        public string Authors;
+        public int PublicationYear;
+        public PublicationType Type;
+        public string Cite_as;
+        public DateTime Avaliable;
+       //ublic int Age; 
 
         //Needs constructor 
 

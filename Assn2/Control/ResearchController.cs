@@ -4,17 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Assn2.Research;
+//using Assn2.Research;
+using Assn2.Model; //Changle later
+
 
 namespace Assn2.Control
 {
     class ResearchController
     {
-        public void LoadReseachers()
+
+        public static List<Researcher> LoadReseachers()
         {
 
+            
         }
-        public void FilterBy(EmploymentLevel level)
+        public void FilterBy(Level level)
         {
 
         }

@@ -6,16 +6,18 @@ using System.Data;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 
-using Assn2.Research;
+//using Assn2.Research;
+using Assn2.Model;
+
 
 namespace Assn2.Database
 {
     /*
     
-    public Researcher[] fetchBasicResearcherDetails() {}
-    public Researcher fetchFullResearcherDetails(int id) {}
-    public Researcher completeResearcherDetails(Researcher r) {}
-    public Publication[] fetchBasicPublicationDetails(Researcher r) {}
+    public Researcher[] fetchBasicResearcherDetails() {} DONE
+    public Researcher fetchFullResearcherDetails(int id) {} DONE ***
+    public Researcher completeResearcherDetails(Researcher r) {} Not Necissary? *** Just need to, somewhere, add the returned Researcher into the list where the ID equals each other
+    public Publication[] fetchBasicPublicationDetails(Researcher r) {}  DONE ***
     public Publication completePublicationDetails(Publication p) {}
     public int[] fetchPublicationCounts(DateTime from, DateTime to) {}
 
@@ -28,7 +30,7 @@ namespace Assn2.Database
         private const string pass = "kit206";
         private const string server = "alacritas.cis.utas.edu.au";
 
-        private MySqlConnection conn;
+        private static MySqlConnection conn = null;
 
         public ERDAdapter()
         {
@@ -36,6 +38,22 @@ namespace Assn2.Database
             //Note that the RAP case study database has the same values for its name, user name and password (to keep things simple)
             string connectionString = String.Format("Database={0};Data Source={1};User Id={2};Password={3}", db, server, user, pass);
             conn = new MySqlConnection(connectionString);
+        }
+
+        private static MySqlConnection GetConnection()
+        {
+            if (conn == null)
+            {
+                //Note: This approach is not thread-safe
+                string connectionString = String.Format("Database={0};Data Source={1};User Id={2};Password={3}", db, server, user, pass);
+                conn = new MySqlConnection(connectionString);
+            }
+            return conn;
+        }
+
+        public static T ParseEnum<T>(string value)
+        {
+            return (T)Enum.Parse(typeof(T), value);
         }
 
         /// <summary>
@@ -142,6 +160,147 @@ namespace Assn2.Database
             return researcher;
         }
 
+
+        //for this researcher ID, query its full details, and send back a replacement researcher object with more details attached (to be added to a collection)
+        public static Researcher fetchFullResearcherDetails(int id)
+        {
+            Researcher researcher = new Researcher();
+
+            MySqlConnection conn = GetConnection(); //test connection
+            MySqlDataReader rdr = null; //rdr to null
+
+            try
+            {
+                conn.Open(); //Open connection
+
+                MySqlCommand cmd = new MySqlCommand("select id, given_name, family_name, title, unit, campus, email, photo from researcher where researcher.id=?id", conn);
+                cmd.Parameters.AddWithValue("id", id); //Ammend passed value
+                rdr = cmd.ExecuteReader();
+
+                //If there is a Researcher who matches that ID, assign all the values to the researcher object
+                //Need a way to see if the researcher matches an ID
+                while (rdr.Read())
+                {
+
+
+
+
+                    researcher.Id = rdr.GetInt32(0);
+                    researcher.GivenName = rdr.GetString(1);
+                    researcher.FamilyName = rdr.GetString(2);
+                    researcher.Title = rdr.GetString(3);
+                    researcher.Unit = rdr.GetString(4);
+                    researcher.Campus = ParseEnum<Campus>(rdr.GetString(5));
+                    researcher.Email = rdr.GetString(6);
+                    researcher.Photo = rdr.GetString(7);
+
+
+                }
+            }
+
+
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error connection to DB: " + e);
+
+            }
+
+            finally
+            {
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+            return researcher; //return researcher with full details
+        }
+                
+
+
+
+
+
+
+
+
+
+
+         
+
+        public static Researcher completeResearcherDetails(Researcher r) 
+        { 
+        }
+
+        //Take this researcher, find all publications that have their name attached, add to an array 
+       // public Publication[] fetchBasicPublicationDetails(Researcher r) 
+       // {
+        //}
+
+
+        //for this publication, get its full details & send back a fully detailed replacement
+        public Publication completePublicationDetails(Publication p)
+      
+        {
+            Publication editPublication = new Publication();
+
+            MySqlConnection conn = GetConnection(); //test connection
+            MySqlDataReader rdr = null; //rdr to null
+
+            try
+            {
+                conn.Open(); //Open connection
+
+                MySqlCommand cmd = new MySqlCommand("select doi, title, authors, year, type, cite_as, avalaible from publication where publication.title=?title", conn);
+                cmd.Parameters.AddWithValue("title", p.Title);
+                rdr = cmd.ExecuteReader();
+
+              
+                while (rdr.Read())
+                {
+
+                    editPublication.Doi=rdr.GetString(0);
+                    editPublication.Title = rdr.GetString(1);
+                    editPublication.Authors = rdr.GetString(2);
+                    editPublication.PublicationYear = rdr.GetInt32(3);
+                    editPublication.Type = ParseEnum<PublicationType>(rdr.GetString(4));
+                    editPublication.Cite_as = rdr.GetString(5);
+                    editPublication.Avaliable = rdr.GetDateTime(6);
+
+
+                }
+            }
+
+
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error connection to DB: " + e);
+
+            }
+
+            finally
+            {
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+            return editPublication; //return researcher with full details
+        }
+
+
+      //  public int[] fetchPublicationCounts(DateTime from, DateTime to) 
+      //  { 
+      //  }
 
         /// <summary>
         /// Using the ExecuteScalar method

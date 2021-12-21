@@ -165,7 +165,7 @@ namespace Assn2.Database
 
         //for this researcher ID, query its full details, and send back a replacement researcher object with more details attached (to be added to a collection)
         //Could use this method to complete details of researcher
-        public static Researcher fetchFullResearcherDetails(int id)
+        public  Researcher fetchFullResearcherDetails(int id)
         {
             Researcher researcher = new Researcher();
 
@@ -252,9 +252,9 @@ namespace Assn2.Database
 
          
 
-        public static Researcher completeResearcherDetails(Researcher r) 
-        { 
-        }
+     // public static Researcher completeResearcherDetails(Researcher r) 
+       // 
+       //
 
         //Take this researcher, find all publications that have their name attached, add to an array 
         public Publication[] fetchBasicPublicationDetails(Researcher r)
@@ -272,13 +272,8 @@ namespace Assn2.Database
             
                  foreach (DataRow row in publicationDataSet.Tables["publication"].Rows) //Adds basic details initially
                  {
-                    Publication p = new Publication(); //Method 1:
-                    //p.Doi = "" + row["doi"];
-                    //p.Title = "" + row["title"];
-                    //
-                    //p.Authors + "" + row["authors"];
-
-                    //Method 2:
+                    Publication p = new Publication(); 
+                    
                     p = completePublicationDetails(p); //Will add all publication details to the publication
 
                     for (int i = 0; i<capacity; i++) 

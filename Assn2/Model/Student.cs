@@ -8,10 +8,15 @@ namespace Assn2.Model
 {
     class Student
     {
-        public string degree;
-        public string supervisor;
+        //public string degree;
+        //public string supervisor;
 
-        //Needs constructor/initialiser
+        public string Degree()
+        {
+
+
+
+        }
 
     }
 }

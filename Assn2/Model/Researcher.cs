@@ -18,47 +18,106 @@ namespace Assn2.Model
     
     class Researcher
     {
-        public int Id;
-        public string GivenName;
-        public string FamilyName;
-        public string Title;
-        public string School;
-        public Campus Campus;
-        public string Email;
-        public string Photo; //url
-        //public DateTime utasStart;     may not need these four
-        //public DateTime currentStart;
-        //public int publicationNum;
-        public string Unit;
+        public int Id { get; set; }
+        public string GivenName { get; set; }
+        public string FamilyName { get; set; }
+        public string Title { get; set; }
+        public string School { get; set; }
+        public Campus Campus { get; set; }
+        public string Email { get; set; }
+        public string Photo { get; set; }
+        public DateTime earliestStart { get; set; }
+        public DateTime CurrentStart { get; set; }
+        public string Unit { get; set; }
+        public Publication[] Publications { get; set; }
+        public Position[] Positions { get; set; }
 
 
         //GetCurrentJob(): Returns Position
-        //Choice of Implementation: Takes in an int, returns a Position 
-
-        public Position GetCurrentJob(int id)
+        //Here we just want to loook for whatever position has no END date -> position with no end date = current job.
+        public Position GetCurrentJob(Researcher r)
         {
-            
+            Position returnPosition = new Position(); //To return
+
+            //Go through all elements of the array until that content is equal to null
+            for (int i= 0; i++; r.Positions[i] != null)
+            {
+
+                
+                if (r.Positions[i].Start != null && r.Positions[i].Finish == null) //If this position has a start date, but no finish date, it is the currentJob
+                {
+
+                    returnPosition = Positions[i];
+
+                }
+
+
+            }
+
+            if (returnPosition.Id != void)
+            {
+
+                return returnPosition;
+            } else
+            {
+
+                Console.WriteLine("No current Job");
+                return returnPosition; //Is there an exit code I can put here instead of returning empty position???
+            }
+        }
+
+        //GetEarliestJob(): Returns a Position - The arrays are, by default, build to which the earliest date will be the first entry in the database -> this method will 
+        //Function as if that was not the case 
+        public Position GetEarliestJob(Researcher r)
+        {
+
+            Position temp = new Position(); //Will hold values
+            temp = r.Positions[0]; //Set it to hold initial entry 
+
+            for (int i = 1; i++; r.Positions[i] != null) //Go through the array until we run out of Positions (Skip the first one cause temp will hold its value)
+            {
+                if(DateTime.Compare(temp.Start, r.Positions[i].Start) > 0) //When these are compared, if the returned value is >0, date 2 is earlier than date 1)
+                {
+                    temp = r.Positions[i]; //update temp 
+
+                }
+
+
+            }
+
+            return temp; //Returns Position with the earliest Job 
+
+        }
+
+        
+        //CurrentJobTitle(): Returns a String (Do this with a switch & the enum? need the value)
+        public string CurrentJobTitle(Researcher r)
+        {
+
 
 
 
         }
 
-        
-        //CurrentJobTitle(): Returns a String
+
+        //Tenure(): Returns a float (double): Needs to access database details that are NOT stored within the clas
+        //Edit:
+
+        public double Tenure(Researcher r)
+        {
 
 
-        //CurrentJobStart(): Returns a Date
 
-
-        //GetEarliestJob(): Returns a Position
-
-
-        //EarliestStart(): Returns a Date
-
-
-        //Tenure(): Returns a float (double)
-
+        }
 
         //PublicationsCount(): returns an int
+        public int PublicationsCount(Researcher r)
+        {
+            
+
+
+
+
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace Assn2.Control
     class ResearchController
     {
 
-        public static List<Researcher> LoadReseachers()
+        public void  LoadReseachers()
         {
 
             

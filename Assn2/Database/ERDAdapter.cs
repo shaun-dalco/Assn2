@@ -18,7 +18,7 @@ namespace Assn2.Database
     public Researcher fetchFullResearcherDetails(int id) {} DONE ***
     public Researcher completeResearcherDetails(Researcher r) {} Not Necissary? *** Just need to, somewhere, add the returned Researcher into the list where the ID equals each other
     public Publication[] fetchBasicPublicationDetails(Researcher r) {}  DONE ***
-    public Publication completePublicationDetails(Publication p) {}
+    public Publication completePublicationDetails(Publication p) {} DONE
     public int[] fetchPublicationCounts(DateTime from, DateTime to) {}
 
     */
@@ -125,6 +125,8 @@ namespace Assn2.Database
             }
         }
 
+         
+
         public List<Researcher> fetchBasicResearcherDetails() {
             //int num = GetNumberOfRecords();
             List<Researcher> researcher = new List<Researcher>();
@@ -162,6 +164,7 @@ namespace Assn2.Database
 
 
         //for this researcher ID, query its full details, and send back a replacement researcher object with more details attached (to be added to a collection)
+        //Could use this method to complete details of researcher
         public static Researcher fetchFullResearcherDetails(int id)
         {
             Researcher researcher = new Researcher();
@@ -172,14 +175,14 @@ namespace Assn2.Database
             try
             {
                 conn.Open(); //Open connection
-
-                MySqlCommand cmd = new MySqlCommand("select id, given_name, family_name, title, unit, campus, email, photo from researcher where researcher.id=?id", conn);
+                
+                MySqlCommand cmd = new MySqlCommand("select id, given_name, family_name, title, unit, campus, email, photo, utas_start, current_start from researcher where researcher.id=?id", conn);
                 cmd.Parameters.AddWithValue("id", id); //Ammend passed value
                 rdr = cmd.ExecuteReader();
 
                 //If there is a Researcher who matches that ID, assign all the values to the researcher object
                 //Need a way to see if the researcher matches an ID
-                while (rdr.Read())
+                if (rdr.Read())
                 {
 
 
@@ -193,6 +196,23 @@ namespace Assn2.Database
                     researcher.Campus = ParseEnum<Campus>(rdr.GetString(5));
                     researcher.Email = rdr.GetString(6);
                     researcher.Photo = rdr.GetString(7);
+                    researcher.EarliestStart = rdr.GetDateTime(8);
+                    researcher.CurrentStart= rdr.GetDateTime(9);
+                    researcher.Positions = FetchFullPositionDetails(researcher);
+   
+
+                    
+                    
+                    
+                    
+                  
+
+                    return researcher; //return researcher with full details
+
+
+                } else {
+
+                    return null;
 
 
                 }
@@ -217,7 +237,7 @@ namespace Assn2.Database
                 }
             }
 
-            return researcher; //return researcher with full details
+            
         }
                 
 
@@ -237,9 +257,65 @@ namespace Assn2.Database
         }
 
         //Take this researcher, find all publications that have their name attached, add to an array 
-       // public Publication[] fetchBasicPublicationDetails(Researcher r) 
-       // {
-        //}
+        public Publication[] fetchBasicPublicationDetails(Researcher r)
+        {
+        
+            int capacity = 10;
+            Publication researchersPublications[capacity] = new Publication[](); //Make a new array of publications (placeholder 10 value, needs to be evaluated).
+            
+            try
+            {
+
+                 var publicationDataSet = new DataSet(); //Make the dataset for the query
+                 var publicationAdapter = new MySqlDataAdapter("select * from publication where publication.[FIX THIS QUERY -> NEEDS TO GRAB BASED ON RESEARCHER", conn);
+                 publicationAdapter.Fill(publicationDataSet, "publication");
+            
+                 foreach (DataRow row in publicationDataSet.Tables["publication"].Rows) //Adds basic details initially
+                 {
+                    Publication p = new Publication(); //Method 1:
+                    //p.Doi = "" + row["doi"];
+                    //p.Title = "" + row["title"];
+                    //
+                    //p.Authors + "" + row["authors"];
+
+                    //Method 2:
+                    p = completePublicationDetails(p); //Will add all publication details to the publication
+
+                    for (int i = 0; i<capacity; i++) 
+                    {//To navigate the array 
+                
+                        if(researchersPublications[i] = null) //If the space is empty, add the new publication.
+                        {
+                            researchersPublications[i] = p;
+                             i = capacity;
+
+                        } 
+                        
+                    }//If its full, skip this & increment until max capacity
+
+                 }
+
+            }
+            finally
+            {
+                //close connection
+                if (conn != null)
+                {
+                    conn.Close();
+
+                }
+            }
+
+            Console.WriteLine("publications created for " + r.GivenName);
+            return researchersPublications[];
+
+        }
+          
+
+
+                
+
+      
 
 
         //for this publication, get its full details & send back a fully detailed replacement
@@ -294,11 +370,118 @@ namespace Assn2.Database
                 }
             }
 
-            return editPublication; //return researcher with full details
+            return editPublication; //return updated publication
+        }
+
+        
+        public static Position[]  FetchFullPositionDetails(Researcher r)
+        { 
+            int capacity = 10;
+            Position p[capacity] = new Position();   
+
+
+            var positionDataSet = new DataSet(); //Make the dataset for the query
+            var positionAdapter = new MySqlDataAdapter("select * from publication where publication.[FIX THIS QUERY -> NEEDS TO GRAB BASED ON RESEARCHER", conn);
+            positionAdapter.Fill(positionDataSet, "publication");
+            
+            foreach (DataRow row in positionDataSet.Tables["publication"].Rows) //Adds basic details initially
+            {
+                Position x = new Position(); //New position to add to the array 
+
+                x.Id = "" + row["id"];
+                string s = "" + row["level"];
+                x.Level = ParseEnum<EmploymentLevel>(s);
+                x.Start = "" + row["start"];
+                x.End = "" + row["End"];
+               
+
+                 for (int i = 0; i<capacity; i++) 
+                 {//To navigate the array 
+                
+                        if(p[i] = null) //If the space is empty, add the new publication.
+                        {
+                             p[i] = x;
+                             i = capacity;
+
+                        } 
+                        
+                  }//If its full, skip this & increment until max capacity
+
+            }
+
+            
+            finally
+            {
+                //close connection
+                if (conn != null)
+                {
+                    conn.Close();
+
+                }
+            }
+
+            Console.WriteLine("publications created for " + r.GivenName);
+            return p[];
+
         }
 
 
-      //  public int[] fetchPublicationCounts(DateTime from, DateTime to) 
+        public static Position FetchPositionDetails(int id)
+        {
+
+             Position p = new Position();
+             MySqlConnection conn = GetConnection();
+             MySqlDataReader rdr = null; 
+
+             try
+             {
+
+                conn.Open(); 
+
+                MySqlCommand cmd = new MySqlCommand("select id, level, start, end from position where position.id=?id", conn);
+                cmd.Parameters.AddWithValue("id", id);
+                rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    p.Id = rdr.GetInt32(0);
+                    p.Level = ParseEnum<EmploymentLevel>(rdr.GetString(1));
+                    p.Start = rdr.GetDateTime(2);
+                    p.Finish = rdr.GetDateTime(3);
+
+                }
+
+             }
+
+             catch (MySqlException e)
+             {
+                Console.WriteLine("Error connection to DB: " + e);
+
+             } 
+
+             finally
+             {
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+            return p;          
+
+        }
+
+                  
+        
+       
+
+
+    
+       // public int[] fetchPublicationCounts(DateTime from, DateTime to) 
       //  { 
       //  }
 

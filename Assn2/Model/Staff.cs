@@ -8,10 +8,19 @@ namespace Assn2.Model
 {
     class Staff
     {
-        public string[] superviseeName;
-        public Position[] positions;
-        
-        //Needs constructor, threeYearAverage & Performance 
+
+        public float ThreeYearAverage()
+        {
+
+
+        }
+
+        public float Performance()
+        {
+
+
+
+        }
 
     }
 }

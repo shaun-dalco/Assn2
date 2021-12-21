@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Assn2.Model
 {
 
-    public enum Level
+    public enum EmploymentLevel
     {
         A,
         B,
@@ -21,12 +21,26 @@ namespace Assn2.Model
 
     class Position
     {
-        public int id;
-        public Level level;
-        public DateTime start;
-        public DateTime finish;
 
-        //Needs constructor 
+        public int Id { get; set; }
+        public EmploymentLevel Level { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime Finish {  get; set; }
+
+        public string Title() //Is also in the Researcher Source file 
+        {
+
+
+        }
+
+        public string ToTitle(EmploymentLevel l)
+        {
+
+
+
+        }
+
+        
 
     }
 }

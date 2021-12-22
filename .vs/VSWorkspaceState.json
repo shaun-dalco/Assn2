@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Assn2",
+    "\\Assn2\\Control",
+    "\\Assn2\\Database",
+    "\\Assn2\\Model",
+    "\\Assn2\\View"
   ],
-  "SelectedNode": "\\Assn2.sln",
+  "SelectedNode": "\\Assn2\\Assn2.csproj",
   "PreviewInSolutionExplorer": false
 }

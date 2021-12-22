@@ -165,7 +165,7 @@ namespace Assn2.Database
 
         //for this researcher ID, query its full details, and send back a replacement researcher object with more details attached (to be added to a collection)
         //Could use this method to complete details of researcher
-        public  Researcher fetchFullResearcherDetails(int id)
+        public Researcher fetchFullResearcherDetails(int id)
         {
             Researcher researcher = new Researcher();
 
@@ -198,7 +198,7 @@ namespace Assn2.Database
                     researcher.Photo = rdr.GetString(7);
                     researcher.EarliestStart = rdr.GetDateTime(8);
                     researcher.CurrentStart= rdr.GetDateTime(9);
-                    researcher.Positions = FetchFullPositionDetails(researcher);
+                    //researcher.Positions = fetchFullPositionDetails(researcher);
    
 
                     
@@ -210,12 +210,8 @@ namespace Assn2.Database
                     return researcher; //return researcher with full details
 
 
-                } else {
-
-                    return null;
-
-
                 }
+                
             }
 
 
@@ -236,6 +232,7 @@ namespace Assn2.Database
                     conn.Close();
                 }
             }
+            return null;
 
             
         }
@@ -257,11 +254,10 @@ namespace Assn2.Database
        //
 
         //Take this researcher, find all publications that have their name attached, add to an array 
-        public Publication[] fetchBasicPublicationDetails(Researcher r)
+        public List<Publication> fetchBasicPublicationDetails(Researcher r)
         {
-        
             int capacity = 10;
-            Publication researchersPublications[capacity] = new Publication[](); //Make a new array of publications (placeholder 10 value, needs to be evaluated).
+            List<Publication> researchersPublications = new List<Publication>(); //Make a new array of publications (placeholder 10 value, needs to be evaluated).
             
             try
             {
@@ -279,10 +275,10 @@ namespace Assn2.Database
                     for (int i = 0; i<capacity; i++) 
                     {//To navigate the array 
                 
-                        if(researchersPublications[i] = null) //If the space is empty, add the new publication.
+                        if(researchersPublications[i] == null) //If the space is empty, add the new publication.
                         {
-                            researchersPublications[i] = p;
-                             i = capacity;
+                            researchersPublications.Add(p);
+                            i = capacity;
 
                         } 
                         
@@ -302,7 +298,7 @@ namespace Assn2.Database
             }
 
             Console.WriteLine("publications created for " + r.GivenName);
-            return researchersPublications[];
+            return researchersPublications;
 
         }
           
@@ -369,42 +365,43 @@ namespace Assn2.Database
         }
 
         
-        public static Position[]  FetchFullPositionDetails(Researcher r)
+        
+        public static List<Position> FetchFullPositionDetails(Researcher r)
         { 
             int capacity = 10;
-            Position p[capacity] = new Position();   
+            List<Position> p = new List<Position>();   
 
-
-            var positionDataSet = new DataSet(); //Make the dataset for the query
-            var positionAdapter = new MySqlDataAdapter("select * from publication where publication.[FIX THIS QUERY -> NEEDS TO GRAB BASED ON RESEARCHER", conn);
-            positionAdapter.Fill(positionDataSet, "publication");
+            try {
+                var positionDataSet = new DataSet(); //Make the dataset for the query
+                var positionAdapter = new MySqlDataAdapter("select * from publication where publication.[FIX THIS QUERY -> NEEDS TO GRAB BASED ON RESEARCHER", conn);
+                positionAdapter.Fill(positionDataSet, "publication");
             
-            foreach (DataRow row in positionDataSet.Tables["publication"].Rows) //Adds basic details initially
-            {
-                Position x = new Position(); //New position to add to the array 
+                foreach (DataRow row in positionDataSet.Tables["publication"].Rows) //Adds basic details initially
+                {
+                    Position x = new Position(); //New position to add to the array 
 
-                x.Id = "" + row["id"];
-                string s = "" + row["level"];
-                x.Level = ParseEnum<EmploymentLevel>(s);
-                x.Start = "" + row["start"];
-                x.End = "" + row["End"];
+                    x.Id = (int) row["id"];
+                    string s = "" + row["level"];
+                    x.Level = ParseEnum<EmploymentLevel>(s);
+                    x.Start = row["start"];
+                    x.Finish = row["End"];
                
 
-                 for (int i = 0; i<capacity; i++) 
-                 {//To navigate the array 
+                    for (int i = 0; i<capacity; i++) 
+                    {//To navigate the array 
                 
                         if(p[i] = null) //If the space is empty, add the new publication.
                         {
-                             p[i] = x;
+                             p.Add(x);
                              i = capacity;
 
                         } 
                         
-                  }//If its full, skip this & increment until max capacity
+                    }//If its full, skip this & increment until max capacity
+
+                }
 
             }
-
-            
             finally
             {
                 //close connection
@@ -416,7 +413,7 @@ namespace Assn2.Database
             }
 
             Console.WriteLine("publications created for " + r.GivenName);
-            return p[];
+            return p;
 
         }
 

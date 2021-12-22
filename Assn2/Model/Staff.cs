@@ -11,14 +11,14 @@ namespace Assn2.Model
 
         public float ThreeYearAverage()
         {
-
+            return 0.0f;
 
         }
 
         public float Performance()
         {
 
-
+            return 0.0f;
 
         }
 

@@ -26,12 +26,23 @@ namespace Assn2.Model
         public Campus Campus { get; set; }
         public string Email { get; set; }
         public string Photo { get; set; }
-        public DateTime earliestStart { get; set; }
+        public DateTime EarliestStart { get; set; }
         public DateTime CurrentStart { get; set; }
         public string Unit { get; set; }
-        public Publication[] Publications { get; set; }
-        public Position[] Positions { get; set; }
+        public List<Publication> Publications { get; set; }
+        public List<Position> Positions { get; set; }
 
+        public string FormattedName
+        {
+            get
+            {
+                return (FamilyName + ", " + GivenName + " (" + Title + ")");
+            }
+            set
+            {
+                // not settable
+            }
+        }
 
         //GetCurrentJob(): Returns Position
         //Here we just want to loook for whatever position has no END date -> position with no end date = current job.
@@ -40,7 +51,7 @@ namespace Assn2.Model
             Position returnPosition = new Position(); //To return
 
             //Go through all elements of the array until that content is equal to null
-            for (int i= 0; i++; r.Positions[i] != null)
+            for (int i= 0; r.Positions[i] != null; i++)
             {
 
                 
@@ -54,7 +65,7 @@ namespace Assn2.Model
 
             }
 
-            if (returnPosition.Id != void)
+            if (returnPosition.Id != null)
             {
 
                 return returnPosition;
@@ -74,7 +85,7 @@ namespace Assn2.Model
             Position temp = new Position(); //Will hold values
             temp = r.Positions[0]; //Set it to hold initial entry 
 
-            for (int i = 1; i++; r.Positions[i] != null) //Go through the array until we run out of Positions (Skip the first one cause temp will hold its value)
+            for (int i = 1; r.Positions[i] != null; i++) //Go through the array until we run out of Positions (Skip the first one cause temp will hold its value)
             {
                 if(DateTime.Compare(temp.Start, r.Positions[i].Start) > 0) //When these are compared, if the returned value is >0, date 2 is earlier than date 1)
                 {
@@ -96,7 +107,7 @@ namespace Assn2.Model
 
 
 
-
+            return "";
         }
 
 
@@ -107,14 +118,14 @@ namespace Assn2.Model
         {
 
 
-
+            return 0.0f;
         }
 
         //PublicationsCount(): returns an int
         public int PublicationsCount(Researcher r)
         {
             
-
+            return 0;
 
 
 

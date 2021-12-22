@@ -30,13 +30,13 @@ namespace Assn2.Model
         public string Title() //Is also in the Researcher Source file 
         {
 
-
+            return "";
         }
 
         public string ToTitle(EmploymentLevel l)
         {
 
-
+            return "";
 
         }
 

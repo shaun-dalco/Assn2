@@ -30,7 +30,7 @@ namespace Assn2.Model
         public int Age()
         {
             
-
+            return 0;
 
         }
 

@@ -1,15 +1,12 @@
 C:\Users\sjdalco\source\repos\Assn2\Assn2\bin\Debug\Assn2.exe.config
 C:\Users\sjdalco\source\repos\Assn2\Assn2\bin\Debug\Assn2.exe
 C:\Users\sjdalco\source\repos\Assn2\Assn2\bin\Debug\Assn2.pdb
-C:\Users\sjdalco\source\repos\Assn2\Assn2\obj\Debug\Assn2.csprojAssemblyReference.cache
 C:\Users\sjdalco\source\repos\Assn2\Assn2\obj\Debug\MainWindow.g.cs
 C:\Users\sjdalco\source\repos\Assn2\Assn2\obj\Debug\App.g.cs
 C:\Users\sjdalco\source\repos\Assn2\Assn2\obj\Debug\Assn2_MarkupCompile.cache
 C:\Users\sjdalco\source\repos\Assn2\Assn2\obj\Debug\Assn2_MarkupCompile.lref
 C:\Users\sjdalco\source\repos\Assn2\Assn2\obj\Debug\MainWindow.baml
 C:\Users\sjdalco\source\repos\Assn2\Assn2\obj\Debug\Assn2.g.resources
-C:\Users\sjdalco\source\repos\Assn2\Assn2\obj\Debug\Assn2.Properties.Resources.resources
-C:\Users\sjdalco\source\repos\Assn2\Assn2\obj\Debug\Assn2.csproj.GenerateResource.cache
 C:\Users\sjdalco\source\repos\Assn2\Assn2\obj\Debug\Assn2.csproj.CoreCompileInputs.cache
 C:\Users\sjdalco\source\repos\Assn2\Assn2\obj\Debug\Assn2.exe
 C:\Users\sjdalco\source\repos\Assn2\Assn2\obj\Debug\Assn2.pdb
@@ -93,3 +90,20 @@ E:\2021\Software Design and Development\Assn2\Assn2\obj\Debug\Assn2.csproj.CoreC
 E:\2021\Software Design and Development\Assn2\Assn2\obj\Debug\Assn2.csproj.CopyComplete
 E:\2021\Software Design and Development\Assn2\Assn2\obj\Debug\Assn2.exe
 E:\2021\Software Design and Development\Assn2\Assn2\obj\Debug\Assn2.pdb
+C:\Users\sjdalco\Source\Repos\Assn2\Assn2\obj\Debug\Assn2.csproj.AssemblyReference.cache
+C:\Users\sjdalco\Source\Repos\Assn2\Assn2\obj\Debug\View\ResearcherListView.g.cs
+C:\Users\sjdalco\Source\Repos\Assn2\Assn2\obj\Debug\View\ResearcherDetailsView.g.cs
+C:\Users\sjdalco\Source\Repos\Assn2\Assn2\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\sjdalco\Source\Repos\Assn2\Assn2\obj\Debug\View\ResearcherListView.baml
+C:\Users\sjdalco\Source\Repos\Assn2\Assn2\obj\Debug\View\ResearcherDetailsView.baml
+C:\Users\sjdalco\Source\Repos\Assn2\Assn2\bin\Debug\System.Buffers.dll
+C:\Users\sjdalco\Source\Repos\Assn2\Assn2\bin\Debug\System.Memory.dll
+C:\Users\sjdalco\Source\Repos\Assn2\Assn2\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\sjdalco\Source\Repos\Assn2\Assn2\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\sjdalco\Source\Repos\Assn2\Assn2\bin\Debug\Google.Protobuf.pdb
+C:\Users\sjdalco\Source\Repos\Assn2\Assn2\bin\Debug\Google.Protobuf.xml
+C:\Users\sjdalco\Source\Repos\Assn2\Assn2\bin\Debug\K4os.Compression.LZ4.xml
+C:\Users\sjdalco\Source\Repos\Assn2\Assn2\bin\Debug\K4os.Compression.LZ4.Streams.xml
+C:\Users\sjdalco\Source\Repos\Assn2\Assn2\bin\Debug\K4os.Hash.xxHash.xml
+C:\Users\sjdalco\Source\Repos\Assn2\Assn2\bin\Debug\MySql.Data.xml
+C:\Users\sjdalco\Source\Repos\Assn2\Assn2\obj\Debug\Assn2.csproj.CopyComplete
